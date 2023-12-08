@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "zabutonr",
+  "version": "${version}",
+  "name": "ZabutonR",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All Rights Reserved",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.sistr.zabutonr.fabric.ZabutonRFabric"
+    ],
+    "client": [
+      "net.sistr.zabutonr.fabric.ZabutonRFabric"
+    ]
+  },
+  "mixins": [
+    "zabutonr.mixins.json",
+    "zabutonr-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": ">=1.20.1"
+  }
+}
