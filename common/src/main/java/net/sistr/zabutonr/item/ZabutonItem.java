@@ -20,15 +20,18 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.sistr.zabutonr.entity.ZabutonEntity;
+import net.sistr.zabutonr.util.Color;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 public class ZabutonItem extends Item {
+    private final Color color;
     private static final Predicate<Entity> RIDERS = EntityPredicates.EXCEPT_SPECTATOR.and(Entity::canHit);
 
-    public ZabutonItem(Settings settings) {
+    public ZabutonItem(Settings settings, Color color) {
         super(settings);
+        this.color = color;
     }
 
     @Override
@@ -76,7 +79,7 @@ public class ZabutonItem extends Item {
         var pos = hitResult.getPos();
         double x = Math.round((float) pos.x * 8) / 8.0;
         double z = Math.round((float) pos.z * 8) / 8.0;
-        return new ZabutonEntity(world, x, pos.y + 0.2, z);
+        return new ZabutonEntity(world, this.color, x, pos.y + 0.2, z);
     }
 
     @Override

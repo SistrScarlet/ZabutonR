@@ -13,7 +13,7 @@ import net.sistr.zabutonr.setup.Registration;
 public class ZabutonRClient {
 
     public static void init() {
-        EntityRendererRegistry.register(Registration.WHITE_ZABUTON_ENTITY, ZabutonREntityRenderer::new);
+        EntityRendererRegistry.register(Registration.ZABUTON_ENTITY, ZabutonREntityRenderer::new);
         EntityModelLayerRegistry.register(ZabutonEntityModelLayers.ZABUTON, ZabutonEntityModel::getTexturedModelData);
     }
 

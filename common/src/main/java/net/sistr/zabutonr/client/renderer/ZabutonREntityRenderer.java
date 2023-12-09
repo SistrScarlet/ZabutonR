@@ -6,17 +6,16 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.sistr.zabutonr.ZabutonR;
 import net.sistr.zabutonr.client.model.ZabutonEntityModel;
 import net.sistr.zabutonr.client.model.ZabutonEntityModelLayers;
 import net.sistr.zabutonr.entity.ZabutonEntity;
+import net.sistr.zabutonr.util.Color;
 
 public class ZabutonREntityRenderer extends EntityRenderer<ZabutonEntity> {
-    private static final Identifier TEXTURE = new Identifier(ZabutonR.MOD_ID, "textures/entity/zabuton/zabuton.png");
+    private static final Identifier[] TEXTURES = new Identifier[16];
     private final ZabutonEntityModel MODEL;
 
     public ZabutonREntityRenderer(EntityRendererFactory.Context ctx) {
@@ -40,6 +39,13 @@ public class ZabutonREntityRenderer extends EntityRenderer<ZabutonEntity> {
 
     @Override
     public Identifier getTexture(ZabutonEntity entity) {
-        return TEXTURE;
+        return TEXTURES[entity.getColor().id];
+    }
+
+    static {
+        for (Color color : Color.colors) {
+            TEXTURES[color.id] = new Identifier(ZabutonR.MOD_ID,
+                    "textures/entity/zabuton/" + color.name + "_zabuton.png");
+        }
     }
 }

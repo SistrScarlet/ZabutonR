@@ -10,6 +10,9 @@ import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -18,21 +21,24 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.sistr.zabutonr.setup.Registration;
+import net.sistr.zabutonr.util.Color;
 
 import java.util.List;
 
 public class ZabutonEntity extends Entity {
+    private Color color = Color.WHITE;
 
     public ZabutonEntity(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    public ZabutonEntity(World world) {
-        super(Registration.WHITE_ZABUTON_ENTITY.get(), world);
+    protected ZabutonEntity(World world, Color color) {
+        super(Registration.ZABUTON_ENTITY.get(), world);
+        this.color = color;
     }
 
-    public ZabutonEntity(World world, double x, double y, double z) {
-        this(world);
+    public ZabutonEntity(World world, Color color, double x, double y, double z) {
+        this(world, color);
         this.refreshPositionAndAngles(x, y, z, 0, 0);
     }
 
@@ -43,12 +49,12 @@ public class ZabutonEntity extends Entity {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
-
+        this.color = Color.fromId(nbt.getByte("Color"));
     }
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound nbt) {
-
+        nbt.putByte("Color", (byte) color.id);
     }
 
     @Override
@@ -168,11 +174,26 @@ public class ZabutonEntity extends Entity {
     }
 
     public Item asItem() {
-        return Registration.WHITE_ZABUTON_ITEM.get();
+        return Registration.getZabuton(this.color);
     }
 
     @Override
     public ItemStack getPickBlockStack() {
         return new ItemStack(this.asItem());
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    @Override
+    public void onSpawnPacket(EntitySpawnS2CPacket packet) {
+        super.onSpawnPacket(packet);
+        this.color = Color.fromId(packet.getEntityData());
+    }
+
+    @Override
+    public Packet<ClientPlayPacketListener> createSpawnPacket() {
+        return new EntitySpawnS2CPacket(this, this.color.id);
     }
 }
