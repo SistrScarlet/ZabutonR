@@ -16,6 +16,7 @@ import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
@@ -68,6 +69,11 @@ public class ZabutonEntity extends Entity {
     }
 
     @Override
+    public boolean isPushable() {
+        return true;
+    }
+
+    @Override
     public double getMountedHeightOffset() {
         return -0.1;
     }
@@ -86,13 +92,16 @@ public class ZabutonEntity extends Entity {
     }
 
     public void tickMovement() {
-        if (!this.canMoveVoluntarily()) {
-            double drag = 0.98;
-            if (this.isSubmergedInWater()) {
-                drag = 0.6;
-            }
-            this.setVelocity(this.getVelocity().multiply(drag));
+        BlockPos blockPos = this.getVelocityAffectingPos();
+        float slipperiness = this.getWorld().getBlockState(blockPos).getBlock().getSlipperiness();
+        float drag = this.isOnGround() ? slipperiness * 0.91f : 0.91f;
+
+        if (this.isTouchingWater()) {
+            this.setVelocity(this.getVelocity().multiply(0.6, 0.6, 0.6));
+        } else {
+            this.setVelocity(this.getVelocity().multiply(drag, 0.98, drag));
         }
+
         if (!this.hasNoGravity() && !noClip) {
             Vec3d vec3d4 = this.getVelocity();
             this.setVelocity(vec3d4.x, vec3d4.y - 0.05, vec3d4.z);
@@ -111,7 +120,9 @@ public class ZabutonEntity extends Entity {
             vz = 0.0;
         }
         this.setVelocity(vx, vy, vz);
+
         this.move(MovementType.SELF, this.getVelocity());
+
         if (this.getWorld().getOtherEntities(this, getBoundingBox())
                 .stream().anyMatch(e -> e instanceof ZabutonEntity)) {
             this.refreshPositionAndAngles(getX(), getY() + getHeight(), getZ(), getYaw(), getPitch());
@@ -137,6 +148,11 @@ public class ZabutonEntity extends Entity {
                 this.pushAwayFrom(entity);
             }
         }
+    }
+
+    @Override
+    public void pushAwayFrom(Entity entity) {
+        //super.pushAwayFrom(entity);
     }
 
     @Override
