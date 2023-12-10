@@ -5,11 +5,15 @@
   "key": {
     "W": {
       "item": "minecraft:blue_wool"
+    },
+    "C": {
+      "item": "minecraft:blue_carpet"
     }
   },
   "pattern": [
-    "WW",
-    "WW"
+    "C",
+    "W",
+    "C"
   ],
   "result": {
     "item": "zabutonr:blue_zabuton"
