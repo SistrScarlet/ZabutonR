@@ -41,7 +41,8 @@ authors="Sistr" #optional
 #displayTest="MATCH_VERSION" # MATCH_VERSION is the default if nothing is specified (#optional)
 
 # The description text for the mod (multi line!) (#mandatory)
-description="座布団Mod"
+description='''座布団Modリバイバル。
+Tips:座布団を手に持ち、座布団に座ったモブへShift-Rightクリックすると、座布団を強制回収できます。'''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.zabutonr]] #optional
    # the modid of the dependency

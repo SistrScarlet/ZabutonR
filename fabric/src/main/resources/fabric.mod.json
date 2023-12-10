@@ -3,7 +3,7 @@
   "id": "zabutonr",
   "version": "${version}",
   "name": "Zabuton Mod",
-  "description": "座布団Mod",
+  "description": "座布団Modリバイバル。\nTips:座布団を手に持ち、座布団に座ったモブへShift-Rightクリックすると、座布団を強制回収できます。",
   "authors": ["Sistr"],
   "contact": {
     "homepage": "https://forum.civa.jp/viewtopic.php?t=119"
