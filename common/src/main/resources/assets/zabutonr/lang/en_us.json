@@ -14,5 +14,7 @@
   "item.zabutonr.blue_zabuton": "Blue Zabuton",
   "item.zabutonr.purple_zabuton": "Purple Zabuton",
   "item.zabutonr.magenta_zabuton": "Magenta Zabuton",
-  "item.zabutonr.pink_zabuton": "Pink Zabuton"
+  "item.zabutonr.pink_zabuton": "Pink Zabuton",
+
+  "entity.zabutonr.zabuton": "Zabuton"
 }

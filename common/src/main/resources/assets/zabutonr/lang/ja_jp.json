@@ -14,5 +14,7 @@
   "item.zabutonr.blue_zabuton": "座布団（青）",
   "item.zabutonr.purple_zabuton": "座布団（紫）",
   "item.zabutonr.magenta_zabuton": "座布団（赤紫）",
-  "item.zabutonr.pink_zabuton": "座布団（桃）"
+  "item.zabutonr.pink_zabuton": "座布団（桃）",
+
+  "entity.zabutonr.zabuton": "座布団"
 }
