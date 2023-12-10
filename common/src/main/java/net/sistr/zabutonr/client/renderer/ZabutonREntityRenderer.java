@@ -7,7 +7,7 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3f;
 import net.sistr.zabutonr.ZabutonR;
 import net.sistr.zabutonr.client.model.ZabutonEntityModel;
 import net.sistr.zabutonr.client.model.ZabutonEntityModelLayers;
@@ -27,7 +27,7 @@ public class ZabutonREntityRenderer extends EntityRenderer<ZabutonEntity> {
     public void render(ZabutonEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
         matrices.push();
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f - yaw));
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0f - yaw));
         matrices.scale(-1.0f, -1.0f, 1.0f);
         matrices.translate(0.0f, -1.501f, 0.0f);
         MODEL.setAngles(entity, tickDelta, 0.0f, -0.1f, 0.0f, 0.0f);

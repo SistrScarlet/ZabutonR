@@ -10,8 +10,7 @@ import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.ActionResult;
@@ -134,7 +133,7 @@ public class ZabutonEntity extends Entity {
                 EntityPredicates.canBePushedBy(this));
         if (!entityList.isEmpty()) {
             boolean serverAndNonPlayerControl = !this.getWorld().isClient
-                    && !(this.getControllingPassenger() instanceof PlayerEntity);
+                    && !(this.getFirstPassenger() instanceof PlayerEntity);
             for (Entity entity : entityList) {
                 if (entity.hasPassenger(this)) continue;
                 if (serverAndNonPlayerControl
@@ -209,7 +208,7 @@ public class ZabutonEntity extends Entity {
     }
 
     @Override
-    public Packet<ClientPlayPacketListener> createSpawnPacket() {
+    public Packet<?> createSpawnPacket() {
         return new EntitySpawnS2CPacket(this, this.color.id);
     }
 }
