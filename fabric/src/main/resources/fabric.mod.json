@@ -2,10 +2,12 @@
   "schemaVersion": 1,
   "id": "zabutonr",
   "version": "${version}",
-  "name": "ZabutonR",
-  "description": "",
-  "authors": [],
-  "contact": {},
+  "name": "Zabuton Mod",
+  "description": "座布団Mod",
+  "authors": ["Sistr"],
+  "contact": {
+    "homepage": "https://forum.civa.jp/viewtopic.php?t=119"
+  },
   "license": "All Rights Reserved",
   "icon": "icon.png",
   "environment": "*",
@@ -23,6 +25,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.15.0",
-    "minecraft": ">=1.20.1"
+    "minecraft": ">=1.20.1",
+    "architectury": ">=9.1.0"
   }
 }
